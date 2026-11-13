@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <style>
+    .h { fill: #4a3aa7; }
+    .i { fill: #2a78d6; }
+    .q { fill: #1baf7a; }
+    @media (prefers-color-scheme: dark) {
+      .h { fill: #9085e9; }
+      .i { fill: #3987e5; }
+      .q { fill: #199e70; }
+    }
+  </style>
+  <rect class="h" x="2" y="9" width="4" height="9" rx="1"/>
+  <rect class="i" x="8" y="5" width="4" height="13" rx="1"/>
+  <rect class="q" x="14" y="2" width="4" height="16" rx="1"/>
+</svg>

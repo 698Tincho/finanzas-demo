@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* Paleta clara y oscura. Se usan como bg-tarjeta, text-suave, etc. El tema lo elige
+   <html data-theme> (oscuro salvo que la cookie "tema" diga "light"; ver app/layout.tsx).
+   Los neutros son grises grafito, sin tinte: el único color de la pantalla es el de los datos
+   (Visa, Mastercard, credito, cobrado), y cada uno significa siempre lo mismo. */
+:root {
+  --fondo: #f7f7f8;
+  --panel: #ffffff; /* superficie de los recuadros, sobre el fondo */
+  --texto: #18181b;
+  --suave: #61616a;
+  --borde: #e4e4e7;
+  --tarjeta: #f0f0f2; /* relleno suave: pistas de barras, botón elegido, hover */
+  --mal: #cf222e;
+  --peor: #8a5a00;
+  --barra: #8e8e96;
+  --guardia: #8250df;
+  --link: #0969da;
+  --visa: #2a78d6;
+  --master: #ec0000;
+
+  /* Series de los gráficos: validadas para daltonismo (scripts/validate_palette.js de la skill
+     de visualización): azul para Visa y rojo para Mastercard, como sus marcas. */
+  --serie-visa: #2a78d6;
+  --serie-master: #e34948;
+  --serie-credito: #4a3aa7;
+  --serie-cobrado: #1baf7a;
+  /* Alquiler que pagás y cuentas de la casa: validados con la skill dataviz en el orden de las
+     barras (préstamo, Mastercard, Visa, alquiler, cuentas, lo que queda) */
+  --serie-alquiler: #e87ba4;
+  --serie-cuentas: #eda100;
+  /* Ingreso en /ingresos: dos pasos de un mismo gris (el sueldo fuerte, ticket + alquiler suave),
+     validados con la skill dataviz (--ordinal) contra el fondo de cada modo */
+  --serie-sueldo: #52525b;
+  --serie-extra: #a1a1aa;
+  --grilla: #e8e8eb;
+  --eje: #6e6e76;
+
+  /* Fondos teñidos: el recuadro de "Te quedó" (verde) y el del préstamo (violeta), con su texto */
+  --queda-fondo: #e7f5ee;
+  --queda-texto: #0f6b4a;
+  --credito-fondo: #efedfa;
+  --credito-texto: #4a3aa7;
+}
+
+/* Controles nativos (select, barras de desplazamiento) del color del tema */
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --fondo: #0b0b0c;
+  --panel: #141416;
+  --texto: #ededef;
+  --suave: #9d9da5;
+  --borde: #26262a;
+  --tarjeta: #1d1d20;
+  --mal: #f85149;
+  --peor: #d29922;
+  --barra: #6f6f77;
+  --guardia: #a371f7;
+  --link: #4493f8;
+  --visa: #3987e5;
+  --master: #ff4d4d;
+
+  --serie-visa: #3987e5;
+  --serie-master: #e66767;
+  --serie-credito: #9085e9;
+  --serie-cobrado: #199e70;
+  --serie-alquiler: #d55181;
+  --serie-cuentas: #c98500;
+  --serie-sueldo: #a1a1aa;
+  --serie-extra: #52525b;
+  --grilla: #222226;
+  --eje: #8d8d95;
+
+  --queda-fondo: #11261e;
+  --queda-texto: #6fdcb0;
+  --credito-fondo: #1b1a33;
+  --credito-texto: #b1a9f2;
+}
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-texto: var(--texto);
+  --color-suave: var(--suave);
+  --color-borde: var(--borde);
+  --color-tarjeta: var(--tarjeta);
+  --color-panel: var(--panel);
+  --color-mal: var(--mal);
+  --color-peor: var(--peor);
+  --color-barra: var(--barra);
+  --color-guardia: var(--guardia);
+  --color-link: var(--link);
+  --color-visa: var(--visa);
+  --color-master: var(--master);
+  --color-queda-fondo: var(--queda-fondo);
+  --color-queda-texto: var(--queda-texto);
+  /* Semáforo de las dos variaciones de arriba del mes (ingreso y "Te quedó"): verde si subió,
+     rojo si bajó. Mismos colores que el texto de "Te quedó" y que los errores, en claro y oscuro. */
+  --color-sube: var(--queda-texto);
+  --color-baja: var(--mal);
+  --color-credito-fondo: var(--credito-fondo);
+  --color-credito-texto: var(--credito-texto);
+  --font-sans: var(--font-archivo);
+
+  /* Escala tipográfica: cuatro tamaños (más 16 px solo en los campos, para que el iPhone no
+     haga zoom). 2xl título de página, xl título de sección, sm texto y tablas, xs notas,
+     etiquetas, encabezados de tabla y gráficos. Nada más chico que 13 px. Aparte, "hero": el
+     número principal de una pantalla (uno solo por pantalla). */
+  --text-hero: 2.75rem;
+  --text-hero--line-height: 1.05;
+  --text-2xl: 2rem;
+  --text-2xl--line-height: 1.15;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.3;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.45;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.4;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+/* Cifras grandes (recuadros y la barra del sueldo): Archivo de ancho normal, seminegrita y con
+   el espacio entre letras apretado, con cifras tabulares */
+.cifra {
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+}
+
+/* Recuadro: el panel (un escalón sobre el fondo) con borde fino y esquinas redondeadas. Todos los
+   recuadros del sitio usan esta clase, salvo los dos teñidos (Te quedó y préstamo). */
+@utility superficie {
+  border-radius: 1rem;
+  border: 1px solid var(--borde);
+  background: var(--panel);
+}
+
+/* El número principal de cada pantalla, más grande desde sm */
+@media (min-width: 40rem) {
+  .text-hero {
+    font-size: 3.5rem;
+  }
+}
+
+/* Toda cifra de una tabla, con cifras tabulares para que las columnas alineen */
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Números alineados en columnas */
+.num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
