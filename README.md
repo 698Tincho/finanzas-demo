@@ -3,6 +3,8 @@
 A personal finance dashboard: salary, credit cards, a loan and household bills, month by month.
 This is a public copy with **made-up data**. The interface is in Spanish (Uruguay).
 
+**Live demo: https://finanzas.martinarregui.dev**
+
 The real version is private. A scheduled pipeline downloads payslips and card and bank
 statements, extracts the numbers from the PDFs, checks every document against its own totals,
 emails a monthly report and sends the data to this dashboard. Here, the 30 months shown come
